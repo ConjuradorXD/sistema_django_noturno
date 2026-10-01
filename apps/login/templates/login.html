@@ -3,6 +3,7 @@
 {% block content %}
     <div class="d-flex justify-content-center">
         <form action="" method="POST">
+            {% crsf_token %}
             <div class="col-12">
                 <label for="username" class="form-label">
                     Usuarios:
