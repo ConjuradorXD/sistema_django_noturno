@@ -1,9 +1,29 @@
 {% extends 'base-crud.html' %}
 {% block title %}Novo Paciente{% endblock %}
+{% load static %}
 {% block content %}
-
-
-    <h1>Cadastrar Novo Paciente:
+    <h1 class"mt-5>
+        Cadastrar Novo Paciente:
     </h1>
+<hr>
+{% if error %}<p>{{ errpr }}</p>{% emdif %}
+<form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+                <label for="nome" class="form-label">Nome:</label>
+                    codigo_paciente:
+                </label>
+            </div>
+        </div>
 
+        <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
+
+
+    # codigo_paciente 
+    # nome 
+    # cpf 
+    # email 
+    # telefone 
+    # data_nascimento 
