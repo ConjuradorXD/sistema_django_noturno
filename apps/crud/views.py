@@ -7,4 +7,4 @@ def index(request):
     return render(request, "index.html")
 
 def novo_paciente(request):
-    return render(request, "novo_paciente.html")
+    return render(request, "novo-paciente.html")
