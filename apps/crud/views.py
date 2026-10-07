@@ -5,7 +5,7 @@ from .models import Paciente
 # Create your views here.
 @login_required
 def index(request):
-    pacientes =Paciente.objects.all()
+    pacientes = Paciente.objects.all()
     return render(request, "index.html", {'pacientes':pacientes})
 
 @login_required
@@ -23,7 +23,7 @@ def novo_paciente(request):
             telefone=telefone,
             data_nascimento=data_nascimento
         )
-        return redirect('index')
+        return redirect('novo_paciente_sucesso')
     return render(request, "novo-paciente.html")
 
 @login_required
@@ -32,15 +32,30 @@ def novo_paciente_sucesso(request):
 
 @login_required
 def alterar_paciente(request,codigo_paciente):
-    Paciente = Paciente.objets.get(codigo_paciente=codigo_paciente)
+    paciente = Paciente.objects.get(codigo_paciente=codigo_paciente)
     if request.method == 'POST':
-        Paciente.nome = request.POST.get('nome')
-        Paciente.cpf = request.POST.get('cpf')
-        Paciente.email = request.POST.get('email')
-        Paciente.telefone = request.POST.get('telefone')
-        Paciente.data_nascimento = request.POST.get('data_nascimento')
-        
-        Paciente.save()
-        
-        return redirect('home')
-    return render(request, "alterar_dados.html", {'paciente':Paciente})
+        paciente.nome = request.POST.get('nome')
+        paciente.cpf = request.POST.get('cpf')
+        paciente.email = request.POST.get('email')
+        paciente.telefone = request.POST.get('telefone')
+        paciente.data_nascimento = request.POST.get('data_nascimento')
+
+        paciente.save()
+
+        return redirect('index')
+    return render(request, "alterar_dados.html", {'paciente':paciente})
+
+@login_required
+def excluir_paciente(request, codigo_paciente):
+    paciente = Paciente.objects.get(codigo_paciente=codigo_paciente)
+    paciente.delete()
+    return redirect('index')
+
+def buscar_paciente(request):
+    query = request.GET.get('buscar','')
+    pacientes = Paciente.objects.filter(nome_icontains=query)
+    return render(request, 'index.html', {
+        'pacientes':pacientes,
+        'query':query
+    })
+    
