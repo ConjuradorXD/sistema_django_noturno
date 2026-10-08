@@ -52,10 +52,11 @@ def excluir_paciente(request, codigo_paciente):
     return redirect('index')
 
 def buscar_paciente(request):
-    query = request.GET.get('buscar','')
-    pacientes = Paciente.objects.filter(nome_icontains=query)
+    query = request.GET.get('buscar', '')
+    pacientes = Paciente.objects.filter(nome__icontains=query)
     return render(request, 'index.html', {
-        'pacientes':pacientes,
-        'query':query
+        'pacientes': pacientes,
+        'query': query
     })
+
     
